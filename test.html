@@ -1,0 +1,959 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ product.title }}</title>
+    <style>
+       #parent-cart {
+      min-height: 90vh;
+      padding: 0% 2%;
+      background: linear-gradient(
+        180deg,
+        rgba(2,10,11,1) 0%,
+        rgba(178,130,144,1) 84%
+      );
+         display:flex;
+               gap: 2rem;
+
+    }
+     
+    /* #cart-content {
+      display: flex;
+      gap: 2rem;
+       max-width: 900px; 
+       margin: 0 auto; 
+       align-items: flex-start;
+      width:90vw;
+    } */ 
+
+    /* product image & title */
+    .image-content {
+        display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    justify-content: center;
+    }
+    .image-content img {
+      width: 65%;
+      /* max-width: 300px; */
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .product-name {
+      margin-top: 1rem;
+      font-size: 3rem;
+      font-weight:bolder;
+      color: #fff;
+      text-transform: uppercase;
+      /* letter-spacing: 1px; */
+    }
+
+    /* description panel */
+    #product-desc {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 1.5rem;
+      color: #fff;
+    }
+    #product-desc::after {
+      content: "";
+      display: block;
+      margin: 9rem 0;
+      border-bottom: 2px dashed rgba(255,255,255,0.4);
+    }
+    #product-desc .description {
+      font-size: 2.2rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.85);
+            margin-bottom: -10%;
+
+    }
+    #product-desc .pricing-la14{
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #f9b330;
+          height: 0%;
+      margin-top:0px;
+      margin:auto;
+
+    }
+
+    /* quantity selector */
+    .quantity-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #e0fcff 0%, #cff9fe 100%);
+      border: none;
+      padding: 5px 10px;
+      border-radius: 12px;
+      width: 30%;
+      justify-content: space-between;
+                margin: auto;
+
+
+    }
+    .quantity-button {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #333;
+      line-height: 1;
+
+    }
+    .quantity-input {
+      width: 2ch;
+      text-align: center;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+          margin: auto;
+
+    }
+
+    /* action buttons wrapper */
+    .cart-btn {
+      display: flex;
+      /* margin-top: 1rem; */
+    }
+
+    /* Add to Cart button */
+    .btn-add {
+      flex: 1;
+      padding: 1rem 1.5rem;
+      /* background-color: rgba(178,130,144,1); */
+                    background-color: #FFC96B;
+
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width:70%;
+      
+      
+      
+    }
+    .btn-add:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    /* Buy Now button (distinct design) */
+    .btn-buy-la14 {
+     padding: 1rem 1.5rem;
+    /* background-color: rgba(178, 130, 144, 1); */
+                    background-color: #FFC96B;
+
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width:45%;
+    }
+    .btn-buy-la14:hover {
+      background-color: rgba(178,130,144,1);
+      color: #222;
+      transform: translateY(-2px);
+    }
+            body,
+            html {
+              margin: 0;
+              padding: 0;
+              ns-serif;
+            }
+
+            .hero-bg {
+              height: 100vh;
+              width: 100%;
+              background-image: url(https://cdn.shopify.com/s/files/1/0573/1182/1872/files/hero.png?v=1745396176);
+              background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;
+              position: relative;
+            }
+
+            .hero-button {
+              position: absolute;
+              bottom: 9%;
+              left: 4%;
+              display:flex;
+              gap:2rem;
+            }
+
+            .hero-button button {
+              position: relative;
+              display: inline-block;
+              padding: 0.75em 2em;
+              font-size: 2rem;
+              letter-spacing: 1px;
+              color: #fff;
+              /* background: linear-gradient(135deg, #7d4d57, #b26e77); */
+              border: none;
+              border-radius: 50px;
+              box-shadow: 0 4px 15px rgba(125, 77, 87, 0.4);
+              cursor: pointer;
+              overflow: hidden;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              font-style: italic;
+              background-color: #c50a4b;
+              width:100%;
+              
+              
+            }
+
+            /* the “shine” layer */
+            .hero-button button::before {
+              content: "";
+              position: absolute;
+              top: -50%;
+              left: -75%;
+              width: 50%;
+              height: 200%;
+              background: rgba(255, 255, 255, 0.3);
+              transform: rotate(25deg);
+              transition: all 0.6s ease;
+            }
+
+            .hero-button button:hover {
+              transform: scale(1.05);
+              box-shadow: 0 6px 25px rgba(125, 77, 87, 0.5);
+            }
+
+            .hero-button button:hover::before {
+              left: 125%;
+              /* sweeps the shine across */
+            }
+            #benefits {
+              background: #ffffff;
+              background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(125, 77, 87, 1) 100%
+              );
+              height: 115vh;
+            }
+            #benefits h1 {
+              text-align: center;
+              color: #000000;
+              font-family: "Segoe UI", sans-serif;
+                  font-size: 3rem;
+
+            }
+
+            .bt-img img {
+              width: 100%;
+              margin: auto;
+              display: block;
+              /* border-radius: 20px; */
+              box-shadow: 0 0 20px rgba(125, 77, 87, 0.4);
+              animation: pulseGlow 3s ease-in-out infinite;
+            }
+
+            @keyframes pulseGlow {
+              0%,
+              100% {
+                box-shadow: 0 0 20px rgba(125, 77, 87, 0.4);
+              }
+              50% {
+                box-shadow: 0 0 40px rgba(125, 77, 87, 0.6);
+              }
+            }
+            .highlight {
+              background: linear-gradient(
+                0deg,
+                rgba(205, 77, 146, 1) 0%,
+                rgba(255, 255, 255, 1) 100%
+              );
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              /* For Firefox */
+              background-clip: text;
+              color: transparent;
+              font-family: "Segoe UI", sans-serif;
+            }
+            .access-bg {
+              background-image: url(https://cdn.shopify.com/s/files/1/0573/1182/1872/files/access.png?v=1745396175);
+              height: 100vh;
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+            .first-img img {
+              width: 40%;
+            }
+            .second-img img {
+              width: 105%;
+            }
+            .image-container {
+              display: flex;
+            }
+
+            @keyframes floatLR {
+              0% {
+                transform: translateX(-20px);
+              }
+              50% {
+                transform: translateX(20px);
+              }
+              100% {
+                transform: translateX(-20px);
+              }
+            }
+
+            .second-img {
+              position: relative;
+              right: 30%;
+              margin-top: 5%;
+              /* animation: floatLR 4s ease-in-out infinite; */
+            }
+            .ss-bg {
+              background-image: url(https://cdn.shopify.com/s/files/1/0573/1182/1872/files/stainless.png?v=1745396176);
+              height: 100vh;
+              width: 100vw;
+              background-position: center;
+              background-size: cover;
+              background-repeat: no-repeat;
+            }
+            .ss-bg h1 {
+              background: linear-gradient(
+                -76deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(153, 153, 153, 1) 100%
+              );
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+
+              /* Firefox fallback */
+              background-clip: text;
+              color: transparent;
+              font-weight: bold;
+              font-size: 4.2rem;
+              width: 350px;
+              margin-left: 10%;
+              padding-top: 10%;
+               /* font-style: italic; */
+            } 
+            #wire-free {
+              background: #ffffff;
+              background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 1) 0%,
+                rgba(92, 64, 51, 1) 100%
+              );
+              height: 130vh;
+            }
+            .wf-img img {
+              width: 100%;
+              /* border-radius: 30px; */
+            }
+            .wf-img {
+              display: flex;
+              justify-content: center;
+              padding-top: 5%;
+              box-shadow: 0 0 20px rgba(125, 77, 87, 0.4);
+              animation: pulseGlow 3s ease-in-out infinite;
+            }
+
+            @keyframes pulseGlow {
+              0%,
+              100% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+              }
+              50% {
+                box-shadow: 0 0 40px rgba(125, 77, 87, 0.6);
+              }
+            }
+            #stainless {
+              margin-top: 30px;
+            }
+            #installation img {
+              width: 100vw;
+            }
+            #devices {
+              height: 130vh;
+              background-color: black;
+            }
+            .qr img {
+              width: 100vw;
+              /* border-radius: 30px; */
+            }
+            .qr {
+              display: flex;
+              justify-content: center;
+              padding-top: 6%;
+            }
+            .pricing {
+              position: relative;
+              top: 55%;
+              left: 2%;
+            }
+            .pricing img {
+              width: 60%;
+            }
+            .pricing {
+              position: relative;
+              display: inline-block;
+              overflow: hidden;
+            }
+
+            @keyframes popWiggle {
+              0% {
+                transform: scale(1) rotate(0deg);
+              }
+              10% {
+                transform: scale(1.05) rotate(-2deg);
+              }
+              20% {
+                transform: scale(1.1) rotate(2deg);
+              }
+              30% {
+                transform: scale(1.05) rotate(-1deg);
+              }
+              40% {
+                transform: scale(1.1) rotate(1deg);
+              }
+              50% {
+                transform: scale(1) rotate(0deg);
+              }
+              100% {
+                transform: scale(1) rotate(0deg);
+              }
+            }
+            .bt-mobile {
+              display: none;
+            }
+            .benefits-mboile {
+              display: none;
+            }
+            .device-qr,
+            .installation-mobile,
+            .wire-free-setup,
+            .heavy,
+            .access-mobile {
+              display: none;
+            }
+            .fixed-footer {
+  height: 10%;
+  width: 100%;
+  background-color: black;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+  display: none; /* hidden by default */
+}
+            @media (min-width: 320px) and (max-width: 435px) {
+               .footer-title {
+                margin-left:0% !important;
+                /* font-size:1.5rem !important; */
+                    /* width: 30% !important; */
+
+              }
+              .title-para{
+                display:none !important ;
+              }
+              .footer-title{
+                display:none !important;
+              }
+              .footer-buttons{
+                     gap: 2px !important;
+    margin-right: 15% !important; 
+              }
+              .footer-btn {
+                font-size:1.5rem !important;
+                        margin-bottom: 5px !important;
+              }
+             #hero-section{
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+             }
+             
+                .hero-bg {
+                background-image: url(https://cdn.shopify.com/s/files/1/0573/1182/1872/files/hero-mobile.png?v=1745396176);
+                background-position: inherit;
+                /* background-size: contain; */
+                background-repeat: no-repeat;
+                background-size: cover;
+                height: 550px;
+                margin: 10px 0;
+
+                /* width: auto; */
+                /* min-height: 560px; */
+              }
+              .pricing img {
+                width: 40%;
+              }
+              .pricing {
+                position: relative;
+                top: 53%;
+                left: 2%;
+              }
+              .hero-button button {
+                font-size: 1.7rem !important;
+                font-weight:600;
+              }
+              .hero-button {
+                position: absolute;
+                bottom: 15%;
+                left: 5%;
+                    display: flex;
+    flex-direction: column;
+              }
+              #benefits {
+                display: none;
+              }
+              .bt-mobile img {
+                width: 100%;
+                margin: auto;
+              }
+              .bt-mobile {
+                display: flex;
+                justify-content: center;
+                margin: auto;
+              }
+              .benefits-mboile img {
+                width: 100%;
+              }
+              .benefits-mboile {
+                display: flex;
+              }
+              .access-mobile img {
+                width: 100%;
+              }
+              .access-mobile {
+                display: flex;
+              }
+              #access {
+                display: none;
+              }
+              #stainless {
+                display: none;
+              }
+              .heavy img {
+                width: 100%;
+              }
+              .wire-free-setup img {
+                width: 80%;
+                border-radius: 10%;
+              }
+              .wire-free-setup {
+                display: flex;
+                justify-content: center;
+                margin-top: 10%;
+                background: #ffffff;
+                background: linear-gradient(
+                  180deg,
+                  rgba(255, 255, 255, 1) 0%,
+                  rgba(92, 64, 51, 1) 100%
+                );
+                margin-bottom: 10%;
+              }
+              #wire-free {
+                display: none;
+              }
+              #installation {
+                display: none;
+              }
+              .installation-mobile img {
+                width: 100%;
+              }
+              .installation-mobile {
+                display: flex;
+              }
+              #devices {
+                display: none;
+              }
+              .device-qr {
+                background-color: #000000;
+                display: flex;
+                justify-content: center;
+              }
+              .device-qr img {
+                width: 90%;
+                border-radius: 10%;
+                margin-top: 10%;
+                margin-bottom: 10%;
+              }
+              .heavy{
+                display:flex;
+              }
+              #parent-cart{
+                display: flex
+;
+    flex-direction: column;
+              }
+              .image-content{
+                width:100%;
+                        margin-top: 10%;
+
+              }
+              #product-desc{
+                    margin-top: -10%;
+
+              }
+              #product-desc .pricing-la14{
+                display:flex;
+                justify-content:center;
+              }
+              .quantity-container{
+                margin:auto;
+                width:40%;
+              }
+              .btn-buy-la14{
+                    font-size: 2rem;
+                          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+
+              }
+              .btn-add{
+                font-size: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+              }
+             
+            }
+            @media (max-width: 768px) {
+              .pricing img {
+                width: 30%;
+              }
+              .hero-button button {
+                font-size: 0.8rem;
+              }
+              .hero-button {
+                position: absolute;
+                bottom: 15%;
+                left: 1%;
+              }
+              .pricing {
+          position: relative;
+          top: 53%;
+          left: 2%;
+              }
+              
+            }
+      /* Footer container */
+/* Footer container */
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* When visible */
+.fixed-footer.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Title */
+.footer-title {
+ color: #fff;
+    font-size: 2.8rem;
+    font-weight: 600;
+    flex: 1;
+    margin-left: 10%;    /* take up remaining space */
+  display:flex;
+  gap:10px;
+}
+
+/* Buttons wrapper */
+.footer-buttons {  
+  display: flex;
+  gap: 7rem;
+      margin-right: 15%;
+}
+
+/* Buttons */
+.footer-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 2.25rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.footer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div id="hero-section">
+      <div class="hero-bg">
+        <div class="pricing">
+          <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/updated-price.png?v=1746684739" alt="" />
+        </div>
+        <div class="hero-button">
+          
+          <div class="custom-product-form">
+              <button type="button" id="custom-buy-now">Buy Now</button>
+            </div>
+            <div class="cart-btn">
+          <!-- Shopify Add to Cart -->
+          <form id="add-to-cart-form" action="/cart/add" method="post" style="flex:1; width:70%;">
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn-add">Add to Cart</button>
+          </form>
+
+        </div> 
+      </div>
+    </div>
+
+    <div id="benefits">
+      <h1><span class="highlight">B</span>LUETOOTH TECHNOLOGY</h1>
+      <div class="bt-img">
+        <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/bluetooth.png?v=1745396176" alt="" />
+      </div>
+    </div>
+   
+    <!-- mobile view -->
+    <div class="bt-mobile">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/bt-mobile.png?v=1745396176" alt="" />
+    </div>
+
+    <div class="benefits-mboile">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/benefits-mobile.png?v=1745396175" alt="" />
+    </div>
+
+    <div id="access">
+      <div class="access-bg">
+        <div class="image-container">
+          <div class="first-img">
+            <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/way-access.png?v=1745396176" alt="" />
+          </div>
+          <div class="second-img">
+            <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/lock.png?v=1745396176" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- access mobile -->
+    <div class="access-mobile">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/acess_ways.png?v=1745396176" alt="" />
+    </div>
+
+    <div id="stainless">
+      <div class="ss-bg">
+        <h1>Heavy Duty Mortise Ultimate Security.</h1>
+      </div>
+    </div>
+
+    <!-- stainless mobile-view -->
+    <div class="heavy">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/stainless-mobile.png?v=1745396176" alt="" />
+    </div>
+
+    <div id="wire-free">
+      <div class="wf-img">
+        <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/wire-free-img.png?v=1745396177" alt="" />
+      </div>
+    </div>
+
+    <!-- wire-free mobile -->
+    <div class="wire-free-setup">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/wire-free-mobile.png?v=1745396176" alt="" />
+    </div>
+
+    <div id="installation">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/installation.png?v=1745396176" alt="" />
+    </div>
+
+    <!-- installation mobile -->
+    <div class="installation-mobile">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/installation-mobile.png?v=1745396176" alt="" />
+    </div>
+    <div id="devices">
+      <div class="qr">
+        <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/smart_life_webbanner_2880x1006_149d11b8-4449-4561-8385-b2cc90ebc576.png?v=1770371679" alt="" />
+      </div>
+    </div>
+
+ <div id="parent-cart">
+     <div class="image-content">
+        <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.title }}"/>
+        <div class="product-name">{{ product.title }}</div>
+      </div>
+
+      <div id="product-desc">
+        <div class="description">{{ product.description  }}</div>
+        <div class="pricing-la14">{{ variant.price | money_without_trailing_zeros }}</div>
+
+        <div class="quantity-container">
+          <button class="quantity-button" onclick="changeQuantity(-1)">−</button>
+          <input type="text" id="quantity" class="quantity-input" value="1" readonly />
+          <button class="quantity-button" onclick="changeQuantity(1)">+</button>
+        </div>
+
+        <div class="cart-btn">
+          <!-- Shopify Add to Cart -->
+          <form id="add-to-cart-form" action="/cart/add" method="post" style="flex:1; width:70%;">
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn-add">Add to Cart</button>
+          </form>
+          <!-- GoKwik Buy Now -->
+          <button type="button" id="buy-now-btn" class="btn-buy-la14">Buy Now</button>
+        </div>
+      </div>
+  </div>
+
+    
+    <!-- qr-mobile -->
+    <div class="device-qr">
+      <img src="https://cdn.shopify.com/s/files/1/0573/1182/1872/files/smartlife_800x1080_b6636d4e-d193-4262-ad7c-3c55d4383e0e.png?v=1770371678" alt="" />
+    </div>
+
+  <div class="fixed-footer" id="fixedFooter">
+  <div class="footer-title">{{ product.title }} <div class="title-para">     Fingerprint Door Lock</div> </div>
+  <div class="footer-buttons">
+    <button type="button" id="footer-buy" class="footer-btn">
+      Buy Now Rs. {{ variant.price | money_without_trailing_zeros }}
+    </button>
+    <form id="footer-add-form" action="/cart/add" method="post" style="margin:0;">
+      <input type="hidden" name="id" value="{{ variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="footer-btn">Add to Cart</button>
+    </form>
+  </div>
+</div>
+      
+
+ 
+</div>
+
+    
+    <script>
+      // Whenever quantity changes, update all hidden inputs named "quantity"
+      function changeQuantity(delta) {
+        const qtyVisible = document.getElementById("quantity");
+        const newVal = Math.max(1, parseInt(qtyVisible.value, 10) + delta);
+        qtyVisible.value = newVal;
+
+        // Update every <input name="quantity"> on the page (hero, main, footer)
+        document.querySelectorAll('input[name="quantity"]').forEach(el => {
+          el.value = newVal;
+        });
+      }
+
+      // Ensure hidden inputs are synced right before any Add to Cart submits
+      document.getElementById("add-to-cart-form").addEventListener("submit", function (e) {
+        const visibleQty = parseInt(document.getElementById("quantity").value, 10);
+        document.querySelectorAll('#add-to-cart-form input[name="quantity"]').forEach(el => {
+          el.value = visibleQty;
+        });
+      });
+      document.getElementById("footer-add-form").addEventListener("submit", function (e) {
+        const visibleQty = parseInt(document.getElementById("quantity").value, 10);
+        document.querySelectorAll('#footer-add-form input[name="quantity"]').forEach(el => {
+          el.value = visibleQty;
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("buy-now-btn").addEventListener("click", e => {
+          const qty = parseInt(document.getElementById("quantity").value, 10);
+          const variantID = "{{ variant.id }}";
+          if (typeof onBuyNowClick === "function") {
+            onBuyNowClick(e, false, [{ id: variantID, quantity: qty }]);
+          } else {
+            alert("Buy Now failed: GoKwik not loaded.");
+            console.error("onBuyNowClick is not available.");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Hero Buy Now
+        const heroBtn = document.getElementById("custom-buy-now");
+        heroBtn.classList.add("btn-buy-la14");
+        heroBtn.addEventListener("click", e => {
+          const qty = 1; // hero always qty=1
+          const variantID = "{{ variant.id }}";
+          if (typeof onBuyNowClick === "function") {
+            onBuyNowClick(e, false, [{ id: variantID, quantity: qty }]);
+          } else {
+            alert("Buy Now failed: GoKwik not loaded.");
+            console.error("onBuyNowClick is not available.");
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const footer = document.getElementById("fixedFooter");
+        const hero = document.querySelector(".hero-bg");
+
+        function toggleFooterVisibility() {
+          if (!hero) return;
+          if (hero.getBoundingClientRect().bottom <= 0) {
+            footer.style.display = "flex";
+          } else {
+            footer.style.display = "none";
+          }
+        }
+
+        window.addEventListener("scroll", toggleFooterVisibility);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const footer = document.getElementById("fixedFooter");
+        const hero = document.querySelector(".hero-bg");
+
+        function toggleFooter() {
+          if (hero.getBoundingClientRect().bottom <= 0) {
+            footer.classList.add("show");
+          } else {
+            footer.classList.remove("show");
+          }
+        }
+        window.addEventListener("scroll", toggleFooter);
+        toggleFooter();
+
+        document.getElementById("footer-buy").addEventListener("click", e => {
+          const qty = parseInt(document.getElementById("quantity").value, 10) || 1;
+          const variantID = "{{ variant.id }}";
+          if (typeof onBuyNowClick === "function") {
+            onBuyNowClick(e, false, [{ id: variantID, quantity: qty }]);
+          } else {
+            alert("Buy Now failed: GoKwik not loaded.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
